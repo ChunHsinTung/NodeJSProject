@@ -1,1 +1,4 @@
+# Node 套件檔案
 node_modules/
+# 環境變數
+.env
