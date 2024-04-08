@@ -18,8 +18,8 @@ try {
 }
 
 app.get("/", function (req, res) {
-  console.log("進來了");
-  res.send("恭喜");
+  console.log("測試");
+  res.send("哈哈");
 });
 
 // 註冊方法
