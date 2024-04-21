@@ -1,28 +1,43 @@
+//Importing the required libraries/modules
 const express = require("express");
 const app = express();
 
-// 這樣才能讀取 巴底
+
+//Attach the middleware
+//
 app.use(express.json());
 
 require("dotenv").config();
-console.log(process.env.DB_HOST);
+//console.log(process.env.DB_HOST);
 const mongodbUri = process.env.DB_HOST;
+const ismongodbURIExisted = (typeof mongodbUri !== 'undefined') ? true : false
+console.log(ismongodbURIExisted)
 // 連線資料庫
 const mongoose = require("mongoose");
-try {
-  console.log(`連線資料庫${mongodbUri}...`);
-  mongoose.connect(mongodbUri);
-  console.log("資料庫連線成功");
-} catch (error) {
-  console.error("連線失敗，理由：", error);
-}
+console.log(`連線資料庫位址：${ismongodbURIExisted}`);
+mongoose.connect(mongodbUri)
+  .then(() => {
+    console.log("資料庫連線成功");
+  })
+  .catch((error) => {
+    console.log(`資料庫連線失敗，理由： ${error}`);
+  })
 
-// 引入用戶驗證路由
-const auth = require("./routes/auth");
-app.use("/auth", auth);
-// 引入文章路由
-const article = require("./routes/article");
-app.use("/article", article);
+// Importing routers
+const authRouter = require("./routes/authRouter");                  //AuthRouter
+const articleRouter = require("./routes/articleRouter");            //articleRouter
+const userRouter = require("./routes/userRouter");                  //userRouter
+const relationshipRouter = require("./routes/relationshipRouter");  //relationshipRouter
+const registerRouter = require("./routes/registerRouter");          //registerRouter
+
+
+app.use("/auth", authRouter);
+app.use("/article", articleRouter);
+app.use("/user", userRouter);
+app.use("/relationship", relationshipRouter);
+app.use("/register", registerRouter);
+
+
 
 app.get("/", function (req, res) {
   console.log("測試");
