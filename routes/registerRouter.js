@@ -1,4 +1,5 @@
-const userModel = require("../models/user")
+const userModel = require("../models/user");
+const bcrypt = require("bcrypt");
 
 const express = require("express");
 const router = express.Router();
@@ -12,7 +13,7 @@ router.post('/', (req, res) => {
     const newUser = new userModel({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password
+        password: bcrypt.hashSync(req.body.password, 10),
     })
     newUser.save()
         .then(() => {
