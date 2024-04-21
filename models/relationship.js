@@ -16,6 +16,6 @@ const relationshipSchema = new Schema({
     }
 });
 
-const relationship = mongoose.model("relationship", UserSchema);
-
-module.exports = { relationship };
+//const relationship = mongoose.model("relationship", relationshipSchema);
+//module.exports = { relationship };
+module.exports = mongoose.model("relationship", relationshipSchema)
