@@ -19,14 +19,20 @@ router.post('/', (req, res) => {
             console.log(`New user created: Name: ${req.body.name}`);
             res.status(200).json(
                 {
-                    "name": req.body.name,
-                    "email": req.body.email,
-                    "password": req.body.password
+                    "status": true,
+                    "message": "OK"
                 }
+
             );
         })
         .catch((error) => {
             console.log(`Error: ${error}`);
+            res.status(400).json(
+                {
+                    "status": false,
+                    "message": "錯誤"
+                }
+            );
         })
 });
 
