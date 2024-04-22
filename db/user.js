@@ -1,4 +1,4 @@
-const { User } = require("../models/user");
+const User = require("../models/user");
 const bcrypt = require("bcrypt");
 
 const register = async (userData) => {
@@ -9,11 +9,22 @@ const register = async (userData) => {
   return User.create(userData);
 };
 
-const getUserByEmail = async (email) => {
-  return await User.where("email").equals(email).findOne().exec();
+const getUserByEmail = (email) => {
+  return User.findOne(
+    { email: email },
+    { password: 1 }
+  ).exec()
+};
+
+const getUserById = (id) => {
+  return User.findOne(
+    { _id: id },
+    { password: 1 }
+  ).exec()
 };
 
 module.exports = {
   register,
   getUserByEmail,
+  getUserById,
 };

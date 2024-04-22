@@ -1,40 +1,37 @@
 const jwt = require("jsonwebtoken");
 
-const generateAccessToken = (user) => {
-  const config = useRuntimeConfig();
+const jwtAccessTokenSecret = process.env.JWT_ACCESS_TOKEN_SECRET;
+const jwtRefreshTokenSecret = process.env.JWT_REFRESH_TOKEN_SECRET;
 
-  return jwt.sign({ userId: user.id }, config.jwtAccessTokenSecret, {
-    expiresIn: "10m",
+const generateAccessToken = (user) => {
+  return jwt.sign({ userId: user.id }, jwtAccessTokenSecret, {
+    expiresIn: "10m", // 通行鑰匙 10 分鐘到期
   });
 };
 
 const generateRefreshToken = (user) => {
-  const config = useRuntimeConfig();
-
-  return jwt.sign({ userId: user.id }, config.jwtRefreshTokenSecret, {
-    expiresIn: "4h",
+  return jwt.sign({ userId: user.id }, jwtRefreshTokenSecret, {
+    expiresIn: "1d", // 重登鑰匙 1 天到期
   });
 };
 
+/** 解碼 通行JWT 並返回內容 */
 const decodeAccessToken = (token) => {
-  const config = useRuntimeConfig();
-
   try {
-    return jwt.verify(token, config.jwtAccessTokenSecret);
+    return jwt.verify(token, jwtAccessTokenSecret);
   } catch (error) {
+    console.log(error.message);
     return null;
   }
 };
 
-/** 解碼 JWT 獲取用戶資料 */
+/** 解碼 重登JWT 返回用戶資料 */
 const decodeRefreshToken = (token) => {
-  const config = useRuntimeConfig();
-
   try {
-    return jwt.verify(token, config.jwtRefreshTokenSecret);
+    return jwt.verify(token, jwtRefreshTokenSecret);
   } catch (error) {
     console.log(error.message);
-    return error.message;
+    return null;
   }
 };
 
