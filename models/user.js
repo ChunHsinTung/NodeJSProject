@@ -26,7 +26,7 @@ const userSchema = new Schema({
   },
   friends: [
     {
-      _id:String,
+      id:String,
       name:String,
       status:{type:Boolean,default:false}
     }
