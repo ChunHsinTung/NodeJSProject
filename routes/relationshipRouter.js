@@ -44,11 +44,18 @@ router.patch('/addFriend/:id',async(req,res)=>{
     console.log(data)
     try{
         const updateFriend = await User.findByIdAndUpdate(id,{
-                friends:[{
+            $push:{
+                'friends':{
                     id:data.id,
                     name:data.name,
                     status:data.status
-                }]
+                }
+            }
+                // friends:[{
+                //     id:data.id,
+                //     name:data.name,
+                //     status:data.status
+                // }]
             }
         )
         res.status(200).send({
@@ -93,5 +100,28 @@ router.patch('/confirm/:id',async(req,res)=>{
             error
         })
     }
+})
+// 刪除好友
+router.patch('/deleteFriend/:id',async(req,res)=>{
+        // 自己的id
+        const id = req.params.id
+        const data = req.body //對方的id
+        try{
+            const deleteMyFriend = await User.findByIdAndUpdate(id,
+                { $pull: { 'friends': { id: data.id } } }
+            )
+            const deleteMe = await User.findByIdAndUpdate(data.id,
+                { $pull: { 'friends': { id: id } } }
+            )
+            res.status(200).send({
+                status:"success",
+                deleteMyFriend
+            })
+        }catch(error){
+            res.ststus(400).send({
+                status:"false",
+                error
+            })
+        }
 })
 module.exports = router
