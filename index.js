@@ -12,7 +12,8 @@ app.use(cors());
 const dotenv = require("dotenv")
 dotenv.config({path:"./config.env"})
 // console.log(process.env.DB_HOST);
-const mongodbUri = "mongodb://localhost:27017/test"
+const mongodbUri = process.env.DB_HOST;
+//const mongodbUri = "mongodb://localhost:27017/test"
 const ismongodbURIExisted = (typeof mongodbUri !== 'undefined') ? true : false
 console.log(ismongodbURIExisted)
 // 連線資料庫
