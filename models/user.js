@@ -24,6 +24,13 @@ const userSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  friends: [
+    {
+      id:String,
+      name:String,
+      status:{type:Boolean,default:false}
+    }
+  ]
 });
 
 //const user = mongoose.model("user", userSchema);

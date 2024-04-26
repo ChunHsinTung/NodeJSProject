@@ -9,9 +9,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-require("dotenv").config();
-//console.log(process.env.DB_HOST);
+const dotenv = require("dotenv")
+dotenv.config({path:"./config.env"})
+// console.log(process.env.DB_HOST);
 const mongodbUri = process.env.DB_HOST;
+//const mongodbUri = "mongodb://localhost:27017/test"
 const ismongodbURIExisted = (typeof mongodbUri !== 'undefined') ? true : false
 console.log(ismongodbURIExisted)
 // 連線資料庫
@@ -46,5 +48,5 @@ app.get("/", function (req, res) {
   res.send("哈哈");
 });
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3005;
 app.listen(port, () => console.log(`Listening on ${port}...`));
