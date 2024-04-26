@@ -83,12 +83,14 @@ router.patch('/confirm/:id',async(req,res)=>{
                 'friends.$.status':true
             }
         })
-        const updateOppoent = await User.updateOne({_id:data.id},{
-            friends:[{
-                id:id,
-                name:data.myName,
-                status:true
-            }]
+        const updateOppoent = await User.findByIdAndUpdate(data.id,{
+            $push:{
+                'friends':{
+                    id:id,
+                    name:data.myName,
+                    status:true
+                }
+            }
         })
         res.status(200).send({
             status:"success",
