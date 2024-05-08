@@ -30,6 +30,12 @@ const userSchema = new Schema({
       name:String,
       status:{type:Boolean,default:false}
     }
+  ],
+  clubs:[
+    {
+      id:String,
+      name:String
+    }
   ]
 });
 
