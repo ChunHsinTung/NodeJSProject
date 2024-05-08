@@ -37,7 +37,7 @@ const userSchema = new Schema(
         id:String,
         name:String
       }
-    ],
+    ]
   },
   {
     versionKey: false,
