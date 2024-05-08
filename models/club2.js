@@ -23,6 +23,11 @@ const clubSchema = new Schema({
             isManager:{type:Boolean,default:false}, // 是否為管理者
         }
     ]
-  });
+  },
+  {
+    versionKey: false,
+    timestamps: true
+  }
+);
 
   module.exports = mongoose.model('club', clubSchema)

@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("../models/user");
-const Club = require("../models/club");
+const Club = require("../models/club2");
 const router = express.Router();
 
 router.get("/", (req, res) => {
