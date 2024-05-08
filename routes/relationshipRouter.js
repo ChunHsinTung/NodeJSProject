@@ -204,6 +204,29 @@ router.delete("/club/:id", async(req,res)=>{
         })
     }
 })
+// 修改社團內容
+router.patch("/club/:id",async(req,res)=>{
+  const id = req.params.id
+  const data = req.body
+  try{
+    const updateClub = await Club.findByIdAndUpdate(id,{
+      name: data.name,
+      description: data.description
+    })
+    res.status(200).send({
+      status:"success",
+      data:updateClub
+    }
+  )
+  }catch(err){
+    res.status(400).send(
+      {
+        status:"success",
+        message:err
+      }
+    )
+  }
+})
 // 加入社團
 router.patch("/addClub/:clubId",async(req,res)=>{
     const id = req.params.clubId; // 社團id
