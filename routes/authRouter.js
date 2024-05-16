@@ -1,5 +1,55 @@
 const express = require("express");
 const router = express.Router();
+const passport = require("passport");
+const jwt = require('jsonwebtoken');
+const { JWT_SECRET } = process.env
+
+/* GET home page. */
+router.get("/", function (req, res, next) {
+  res.status(200).send({
+    status:"success",
+    message:"OK, it is authRouter page"
+  })
+});
+
+router.get(
+  "/google",
+  passport.authenticate("google", {
+    scope: ["email", "profile"],
+  })
+);
+
+//存到資料庫
+router.get(
+  "/google/callback",
+  passport.authenticate("google", { session: false }),
+  (req, res) => {
+    // res.send({
+    //   status: true,
+    //   data: {
+    //     id: req.user.id,
+    //     name: req.user.displayName,
+    //   },
+    // });
+    // console.log(req.user)
+    const data = {
+      name:req.user.displayName,
+      email:req.user.emails[0].value,
+      photo:req.user.photos[0].value
+    }
+    console.log(data)
+    const token = jwt.sign(data, JWT_SECRET);
+    try{
+      res.cookie('user', token);
+      console.log(token)
+    }catch(err){
+      console.log(err)
+    }
+    
+    res.redirect('http://localhost:3000/login')
+  }
+);
+
 
 const { register } = require("../db/user");
 // 用戶註冊
@@ -40,7 +90,6 @@ const { generateTokens } = require("../utils/jwt");
 const bcrypt = require("bcrypt");
 // 用戶登入
 router.post("/login", async function (req, res) {
-  //   console.log("身體在哪裡", req);
   const body = req.body;
   console.log(body);
 
