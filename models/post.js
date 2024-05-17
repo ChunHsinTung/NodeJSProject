@@ -1,22 +1,27 @@
 const mongoose = require("mongoose");
-const userSchema = require("user.js")
+const userSchema = require("../models/user")
 
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema(
   {
-    userID: {
+    userId: {
       type: Schema.Types.ObjectId,
-      ref: 'user',
+      ref: 'User',
       required: true,
     },
 
-    pageID: {
+    likeCount: {
+      type: Number,
+      default: 0
+    },
+
+    pageId: {
       type: Schema.Types.ObjectId,
       ref: 'club',
     },
 
-    articleID: {
+    articleId: {
       type: String,
       required: true,
     },
@@ -55,4 +60,4 @@ const postSchema = new Schema(
 
 //const post = mongoose.model("post", postSchema);
 //module.exports = { post };
-module.exports = mongoose.model('post', postSchemaSchema)
+module.exports = mongoose.model('post', postSchema)

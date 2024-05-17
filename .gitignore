@@ -1,7 +1,7 @@
 # Node 套件檔案
 node_modules/
 # 環境變數
-.env
+*.env
 config.env
 # 環境設定
 setup.configuration

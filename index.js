@@ -8,7 +8,7 @@ const MongoStore = require("connect-mongo"); //用程式操作mongo
 const passport = require('passport') //入第三方套件庫
 const session = require('express-session') //讀寫session空間
 // Passport config
-const passportSetup = require("./config/passport"); // 引入方式二(名稱自訂)
+// const passportSetup = require("./config/passport"); // 引入方式二(名稱自訂)
 // Sessions設定
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
@@ -38,9 +38,9 @@ const dotenv = require("dotenv")
 dotenv.config({ path: "./.env" })
 //dotenv.config({ path: "./config.env" })
 //console.log(process.env.DB_HOST);
-const mongodbUri = process.env.DB_HOST;
+// const mongodbUri = process.env.DB_HOST;
+const mongodbUri = "mongodb://localhost:27017/test"
 //console.log(mongodbUri);
-//const mongodbUri = "mongodb://localhost:27017/test"
 
 const ismongodbURIExisted = (typeof mongodbUri !== 'undefined') ? true : false
 console.log(ismongodbURIExisted)
@@ -73,6 +73,7 @@ const userRouter = require("./routes/userRouter");                  //userRouter
 const relationshipRouter = require("./routes/relationshipRouter");  //relationshipRouter
 const registerRouter = require("./routes/registerRouter");          //registerRouter
 const loginRouter = require("./routes/loginRouter");          //registerRouter
+const likeRouter = require("./routes/like");                        // likeRouter
 
 
 app.use("/auth", authRouter);
@@ -81,6 +82,7 @@ app.use("/user", userRouter);
 app.use("/relationship", relationshipRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
+app.use("/like", likeRouter);
 
 app.get("/", function (req, res) {
   console.log("測試");
