@@ -28,6 +28,7 @@ router.post("/:id", async (req, res) => {
     // 更新貼文文件中的按讚數
     const post = await Post.findByIdAndUpdate(articleId, {
       $inc: { likeCount: 1 },
+      $push: { "userId": userId },
     });
 
     if (!post) {

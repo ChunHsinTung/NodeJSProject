@@ -74,6 +74,7 @@ const relationshipRouter = require("./routes/relationshipRouter");  //relationsh
 const registerRouter = require("./routes/registerRouter");          //registerRouter
 const loginRouter = require("./routes/loginRouter");          //registerRouter
 const likeRouter = require("./routes/like");                        // likeRouter
+const dislikeRouter = require("./routes/dislike");                        // dislikeRouter
 
 
 app.use("/auth", authRouter);
@@ -83,6 +84,7 @@ app.use("/relationship", relationshipRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/like", likeRouter);
+app.use("/dislike", dislikeRouter);
 
 app.get("/", function (req, res) {
   console.log("測試");
