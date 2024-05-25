@@ -37,9 +37,7 @@ app.use(cors());
 const dotenv = require('dotenv');
 dotenv.config({ path: './.env' });
 //dotenv.config({ path: "./config.env" })
-//console.log(process.env.DB_HOST);
-// const mongodbUri = process.env.DB_HOST;
-const mongodbUri = 'mongodb://localhost:27017/test';
+const mongodbUri = process.env.ENV === "Dev" ? process.env.DB_DEV_HOST : process.env.DB_HOST;
 //console.log(mongodbUri);
 
 const ismongodbURIExisted = (typeof mongodbUri !== 'undefined') ? true : false;
@@ -47,13 +45,13 @@ console.log(ismongodbURIExisted);
 // 連線資料庫
 const mongoose = require('mongoose');
 const clientOptions = { serverApi: { version: '1', strict: true, deprecationErrors: true } };
-console.log(`連線資料庫位址：${ismongodbURIExisted}`);
+console.log(`連線 ${process.env.ENV} 資料庫位址：${ismongodbURIExisted}`);
 mongoose.connect(mongodbUri, clientOptions)
   .then(() => {
-    console.log('資料庫連線成功');
+    console.log(`資料庫連線：成功`);
   })
   .catch((error) => {
-    console.log(`資料庫連線失敗，理由： ${error}`);
+    console.log(`資料庫連線：失敗，理由： ${error}`);
   });
 
 passport.use(new GoogleStrategy({

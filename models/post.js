@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const userSchema = require("user.js")
+const userSchema = require("./user")
 
 const Schema = mongoose.Schema;
 
@@ -60,4 +60,4 @@ const postSchema = new Schema(
 
 //const post = mongoose.model("post", postSchema);
 //module.exports = { post };
-module.exports = mongoose.model('post', postSchemaSchema)
+module.exports = mongoose.model('post', postSchema)

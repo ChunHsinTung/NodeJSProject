@@ -16,7 +16,8 @@ const likeSchema = new Schema({
     required: true,
   },
   commentId: {
-    required: false,
+    type: String,
+    //required: false,
   }
 });
 

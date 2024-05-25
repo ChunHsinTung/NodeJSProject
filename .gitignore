@@ -1,7 +1,10 @@
+#VSCode設定
+.vscode/*
 # Node 套件檔案
-node_modules/
+node_modules/*
 # 環境變數
 .env
 config.env
 # 環境設定
 setup.configuration
+.vscode/settings.json
