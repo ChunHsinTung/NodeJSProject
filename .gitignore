@@ -1,5 +1,6 @@
 #VSCode設定
 .vscode/*
+.vs/*
 # Node 套件檔案
 node_modules/*
 # 環境變數

@@ -12,7 +12,6 @@ router.get("/", (req, res) => {
 
 router.post("/", async (req, res) => {
   const { email, password } = req.body;
-  // console.log(email, password);
 
   // 讀取 cookie
   const cookieJWT = req.cookies['refresh_token'];

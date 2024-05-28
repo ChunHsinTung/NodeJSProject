@@ -32,7 +32,12 @@ app.use(passport.session());
 //Attach the middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  credentials: true
+}
+app.use(cors(corsOptions));
 
 const dotenv = require('dotenv');
 dotenv.config({ path: './.env' });
