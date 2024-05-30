@@ -11,6 +11,7 @@ const session = require('express-session'); //讀寫session空間
 // const passportSetup = require("./config/passport"); // 引入方式二(名稱自訂)
 // Sessions設定
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const mongodbUri = process.env.ENV === "Dev" ? process.env.DB_DEV_HOST : process.env.DB_HOST;
 
 app.use(
   session({
@@ -18,7 +19,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     store: MongoStore.create({ //將session存到MongoDB
-      mongoUrl: 'mongodb://localhost:27017/test',
+      mongoUrl: mongodbUri,
       // mongoUrl: process.env.DB_HOST,
       dbName: 'storybooks',
       stringify: false,
@@ -42,7 +43,7 @@ app.use(cors(corsOptions));
 const dotenv = require('dotenv');
 dotenv.config({ path: './.env' });
 //dotenv.config({ path: "./config.env" })
-const mongodbUri = process.env.ENV === "Dev" ? process.env.DB_DEV_HOST : process.env.DB_HOST;
+//const mongodbUri = process.env.ENV === "Dev" ? process.env.DB_DEV_HOST : process.env.DB_HOST;
 //console.log(mongodbUri);
 
 const ismongodbURIExisted = (typeof mongodbUri !== 'undefined') ? true : false;
