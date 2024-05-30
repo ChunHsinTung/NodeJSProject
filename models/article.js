@@ -43,6 +43,6 @@ const articleSchema = new Schema({
 });
 
 // 創建 Article 模型
-const Article = mongoose.model('Article', articleSchema);
+const Article = mongoose.model('article', articleSchema);
 
 module.exports = Article;
